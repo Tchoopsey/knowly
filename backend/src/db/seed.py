@@ -9,10 +9,6 @@ from src.core.security import hash_password
 from .models import Document, Team, User, UserRole
 from .session import LocalSession
 
-# STORAGE_PATH="./storage/documents"
-# STORAGE_BAK_PATH="./storage_bak/documents/team_1"
-# DATABASE_PATH="./db/test.db"
-
 def seed():
     with LocalSession() as db:
         print(" - Creating teams...")
