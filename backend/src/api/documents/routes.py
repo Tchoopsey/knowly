@@ -13,7 +13,7 @@ from .service import *
 
 router = APIRouter()
 
-@router.get("/knowly/documents/{team_id}/{doc_id}", response_model=DocumentResponse)
+@router.get("/documents/{team_id}/{doc_id}", response_model=DocumentResponse)
 async def get_document(
         team_id: str, 
         doc_id: str, 
@@ -22,7 +22,7 @@ async def get_document(
 ):
     return read_document(team_id, doc_id, db)
 
-@router.get("/knowly/documents/{team_id}/", response_model=list[DocumentResponse])
+@router.get("/documents/{team_id}", response_model=list[DocumentResponse])
 async def get_documents(
         team_id: str, 
         db: Session = Depends(get_db),
@@ -31,7 +31,7 @@ async def get_documents(
     return read_documents(team_id, db)
 
 @router.post(
-    "/knowly/documents/{team_id}/", 
+    "/documents/{team_id}", 
     status_code=status.HTTP_201_CREATED,
     response_model=DocumentResponse
 )
@@ -48,7 +48,7 @@ async def upload_document(
         )
     return await save_document(team_id, file, db)
 
-@router.patch("/knowly/documents/{team_id}/{doc_id}", response_model=DocumentResponse)
+@router.patch("/documents/{team_id}/{doc_id}", response_model=DocumentResponse)
 async def update_document(
         team_id: str, 
         doc_id: str,
@@ -65,7 +65,7 @@ async def update_document(
     )
 
 @router.delete(
-    "/knowly/documents/{team_id}/{doc_id}", 
+    "/documents/{team_id}/{doc_id}", 
     status_code=status.HTTP_204_NO_CONTENT
 )
 async def delete_document(
@@ -76,7 +76,7 @@ async def delete_document(
 ):
     return remove_document(team_id, doc_id, db)
 
-# @router.put("/knowly/documents/{team_id}/{doc_id}")
+# @router.put("/documents/{team_id}/{doc_id}")
 # async def put_document(
 #         team_id: str,
 #         doc_id: str,

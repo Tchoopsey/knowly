@@ -12,7 +12,7 @@ from .schemas import UserCreate, UserResponse, UserUpdate
 
 router = APIRouter()
 
-@router.get("/knowly/users/{user_id}", response_model=UserResponse)
+@router.get("/users/{user_id}", response_model=UserResponse)
 async def get_user(
         user_id: str, 
         db: Session = Depends(get_db),
@@ -20,7 +20,7 @@ async def get_user(
 ):
     return read_user(user_id, db, current_user)
 
-@router.get("/knowly/users/", response_model=list[UserResponse])
+@router.get("/users", response_model=list[UserResponse])
 async def get_users(
         db: Session = Depends(get_db),
         user: User = Depends(get_current_user)
@@ -28,7 +28,7 @@ async def get_users(
     return read_users(db, user)
 
 @router.post(
-    "/knowly/users/", 
+    "/users", 
     response_model=UserResponse,
     status_code=status.HTTP_201_CREATED
 )
@@ -39,7 +39,7 @@ async def create_user(
 ):
     return new_user(user, db, superuser)
 
-@router.delete("/knowly/users/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/users/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_user(
         user_id: str, 
         db: Session = Depends(get_db),
@@ -47,7 +47,7 @@ async def delete_user(
 ):
     return remove_user(user_id, db, superuser)
 
-@router.patch("/knowly/users/{user_id}", response_model=UserResponse)
+@router.patch("/users/{user_id}", response_model=UserResponse)
 async def update_user(
         user: UserUpdate, 
         db: Session = Depends(get_db),

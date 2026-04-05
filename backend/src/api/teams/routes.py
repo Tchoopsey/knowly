@@ -11,14 +11,14 @@ from .services import edit_team, read_team, read_teams, create_team as new_team,
 
 router = APIRouter()
 
-@router.get("/knowly/teams/", response_model=list[TeamResponse])
+@router.get("/teams", response_model=list[TeamResponse])
 async def get_teams(
         db: Session = Depends(get_db),
         user: User = Depends(require_role(UserRole.ADMIN))
 ):
     return read_teams(db)
 
-@router.get("/knowly/teams/{team_id}", response_model=TeamResponse)
+@router.get("/teams/{team_id}", response_model=TeamResponse)
 async def get_team(
         team_id: str, 
         db: Session = Depends(get_db),
@@ -27,7 +27,7 @@ async def get_team(
     return read_team(team_id, db)
 
 @router.post(
-    "/knowly/teams/", 
+    "/teams", 
     response_model=TeamResponse, 
     status_code=status.HTTP_201_CREATED)
 async def create_team(
@@ -37,7 +37,7 @@ async def create_team(
 ):
     return new_team(team, db)
 
-@router.patch("/knowly/teams/{team_id}", response_model=TeamResponse)
+@router.patch("/teams/{team_id}", response_model=TeamResponse)
 async def update_team(
         team_id: str, 
         team: TeamCreateOrUpdate, 
@@ -46,7 +46,7 @@ async def update_team(
 ):
     return edit_team(team_id, team, db)
 
-@router.delete("/knowly/teams/{team_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/teams/{team_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_team(
         team_id: str, 
         db: Session = Depends(get_db),

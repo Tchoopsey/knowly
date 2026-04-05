@@ -11,7 +11,3 @@ STORAGE_BAK_DIR = (BASE_DIR / "storage_bak/documents/team_1").resolve()
 
 DATABASE_PATH = (DATABASE_DIR / "test.db").resolve()
 DATABASE_URL = f"sqlite+pysqlite:///{DATABASE_PATH}"
-
-print(DATABASE_PATH)
-print(DATABASE_PATH.exists())
-print(DATABASE_PATH.parent.exists())
